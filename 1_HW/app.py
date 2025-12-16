@@ -23,7 +23,7 @@ def load_model(pickle_path):
         model = pickle.load(f)
     return model
 
-model_path = Path.home() / "Desktop/Машинное обучение/1 HW/models/best_model_pipeline.pkl"
+model_path = Path.home() / "Desktop/Машинное обучение/1_HW/models/best_model_pipeline.pkl"
 model_pipeline = load_model(model_path)
 st.sidebar.success("Модель загружена")
 # Загрузка данных или ручной ввод
