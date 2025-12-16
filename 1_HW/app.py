@@ -4,6 +4,7 @@ import pickle
 from pathlib import Path
 import seaborn as sns
 import matplotlib.pyplot as plt
+import joblib
 
 # Заголовок приложения
 st.title("Прогнозирование цены автомобиля")
@@ -17,15 +18,18 @@ input_method = st.sidebar.radio(
     ("Загрузить CSV", "Ручной ввод")
 )
 # Загрузка модели
-@st.cache_data
-def load_model(pickle_path):
-    with open(pickle_path, "rb") as f:
-        model = pickle.load(f)
-    return model
-
 model_path = Path(__file__).parent / "models/best_model_pipeline.pkl"
-model_pipeline = load_model(model_path)
-st.sidebar.success("Модель загружена")
+@st.cache_data 
+def load_model(model_path):
+    return joblib.load(model_path)
+try:
+    model_pipeline = load_model(model_path)
+    st.success("Модель успешно загружена!")
+except FileNotFoundError:
+    st.error(f"Файл модели не найден по пути: {model_path}")
+except Exception as e:
+    st.error(f"Ошибка при загрузке модели: {e}")
+
 # Загрузка данных или ручной ввод
 if input_method == "Загрузить CSV":
     uploaded_file = st.file_uploader("Загрузите CSV с признаками автомобиля", type=["csv"])
