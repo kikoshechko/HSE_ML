@@ -4,6 +4,7 @@ import numpy as np
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 st.set_page_config(page_title="Car Price Prediction", layout="wide")
 
@@ -14,7 +15,8 @@ st.write("EDA + Ridge Regression модель")
 # Загрузка модели
 @st.cache_resource
 def load_model():
-    return joblib.load("best_model_pipeline.pkl")
+    model_path = Path(__file__).parent / "best_model_pipeline.pkl"
+    return joblib.load(model_path)
 
 
 model = load_model()
