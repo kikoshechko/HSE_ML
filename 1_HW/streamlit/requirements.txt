@@ -1,7 +1,0 @@
-streamlit
-pandas>=1.5,<2.1
-numpy<2.0
-scikit-learn<1.4
-joblib
-matplotlib
-seaborn
